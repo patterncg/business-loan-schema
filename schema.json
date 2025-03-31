@@ -1,0 +1,499 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Business Loan Underwriting Schema",
+  "description": "A comprehensive schema for capturing data related to business loan underwriting, designed for API ingestion and credit risk modeling.",
+  "type": "object",
+  "required": [
+    "loanDetails",
+    "borrowerInformation",
+    "financialStatements",
+    "creditHistory",
+    "ownershipStructure"
+  ],
+  "properties": {
+    "loanDetails": {
+      "type": "object",
+      "description": "Core information about the requested loan and its terms.",
+      "required": [
+        "loanId",
+        "requestedAmount",
+        "currency",
+        "loanTermMonths",
+        "loanPurpose",
+        "loanPurposeCategory",
+        "requestedRepaymentSchedule"
+      ],
+      "properties": {
+        "loanId": {
+          "type": "string",
+          "description": "Unique identifier for the loan application."
+        },
+        "requestedAmount": {
+          "type": "number",
+          "description": "The amount of the loan requested by the borrower."
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code for the requested loan amount.",
+          "examples": ["USD", "EUR", "GBP", "JPY"]
+        },
+        "loanTermMonths": {
+          "type": "integer",
+          "description": "The requested term of the loan in months."
+        },
+        "loanPurpose": {
+          "type": "string",
+          "description": "Detailed description of the reason for the loan."
+        },
+        "loanPurposeCategory": {
+          "type": "string",
+          "description": "Standardized category for the loan purpose.",
+          "enum": [
+            "Working Capital",
+            "Equipment Purchase",
+            "Real Estate",
+            "Expansion",
+            "Debt Refinancing",
+            "Other"
+          ]
+        },
+        "collateral": {
+          "type": "array",
+          "description": "Details of any assets pledged as collateral for the loan.",
+          "items": {
+            "type": "object",
+            "required": [
+              "collateralType",
+              "collateralDescription",
+              "estimatedValue"
+            ],
+            "properties": {
+              "collateralType": {
+                "type": "string",
+                "description": "Type of collateral being pledged.",
+                "enum": [
+                  "Real Estate",
+                  "Equipment",
+                  "Accounts Receivable",
+                  "Inventory",
+                  "Securities"
+                ]
+              },
+              "collateralDescription": {
+                "type": "string",
+                "description": "Specific description of the collateral asset."
+              },
+              "estimatedValue": {
+                "type": "number",
+                "description": "Estimated market value of the collateral."
+              },
+              "valuationDate": {
+                "type": "string",
+                "format": "date",
+                "description": "Date when the collateral was valued."
+              }
+            }
+          }
+        },
+        "requestedRepaymentSchedule": {
+          "type": "string",
+          "description": "Proposed frequency for loan repayments.",
+          "enum": ["Monthly", "Quarterly", "Annually"]
+        }
+      }
+    },
+    "borrowerInformation": {
+      "type": "object",
+      "description": "Information about the business entity applying for the loan.",
+      "required": [
+        "businessLegalName",
+        "entityType",
+        "taxId",
+        "industryClassification",
+        "formationDate",
+        "businessAddress",
+        "phoneNumber"
+      ],
+      "properties": {
+        "businessLegalName": {
+          "type": "string",
+          "description": "Official registered name of the business."
+        },
+        "doingBusinessAs": {
+          "type": ["string", "null"],
+          "description": "Any trade names used by the business. Can be null if not applicable."
+        },
+        "entityType": {
+          "type": "string",
+          "description": "Legal structure of the business entity.",
+          "enum": [
+            "Sole Proprietorship",
+            "Partnership",
+            "LLC",
+            "S-Corp",
+            "C-Corp"
+          ]
+        },
+        "taxId": {
+          "type": "string",
+          "description": "Business Tax Identification Number (e.g., EIN in the US)."
+        },
+        "industryClassification": {
+          "type": "object",
+          "description": "Information about the business's industry classification.",
+          "required": ["codeType", "code"],
+          "properties": {
+            "codeType": {
+              "type": "string",
+              "description": "Classification system used for industry identification.",
+              "enum": ["NAICS", "SIC"]
+            },
+            "code": {
+              "type": "string",
+              "description": "The specific industry code assigned to the business."
+            },
+            "description": {
+              "type": ["string", "null"],
+              "description": "Plain text description of the industry. Can be null if not provided."
+            }
+          }
+        },
+        "formationDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the business was legally formed."
+        },
+        "yearsInBusiness": {
+          "type": ["number", "null"],
+          "description": "Calculated or provided number of years the business has been operating. Can be null if not provided."
+        },
+        "businessAddress": {
+          "type": "object",
+          "description": "Primary physical location of the business.",
+          "required": [
+            "streetAddress",
+            "city",
+            "stateProvince",
+            "postalCode",
+            "country"
+          ],
+          "properties": {
+            "streetAddress": {
+              "type": "string",
+              "description": "Street address of the business location."
+            },
+            "city": {
+              "type": "string",
+              "description": "City where the business is located."
+            },
+            "stateProvince": {
+              "type": "string",
+              "description": "State, province, or region where the business is located."
+            },
+            "postalCode": {
+              "type": "string",
+              "description": "Postal or ZIP code of the business location."
+            },
+            "country": {
+              "type": "string",
+              "description": "Country where the business is located."
+            }
+          }
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Primary contact phone number for the business."
+        },
+        "websiteUrl": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "description": "Business website URL. Can be null if not available."
+        }
+      }
+    },
+    "financialStatements": {
+      "type": "array",
+      "description": "Collection of historical financial data for the business.",
+      "items": {
+        "type": "object",
+        "required": ["statementType", "periodEndDate", "statementData"],
+        "properties": {
+          "statementType": {
+            "type": "string",
+            "description": "Type of financial statement provided.",
+            "enum": ["Balance Sheet", "Income Statement", "Cash Flow Statement"]
+          },
+          "periodEndDate": {
+            "type": "string",
+            "format": "date",
+            "description": "End date of the financial period covered by the statement."
+          },
+          "statementData": {
+            "type": "object",
+            "description": "Key financial figures from the statement. Structure depends on the statement type.",
+            "additionalProperties": true
+          },
+          "auditStatus": {
+            "type": ["string", "null"],
+            "description": "Level of third-party verification for the financial statement. Can be null if not provided.",
+            "enum": ["Audited", "Reviewed", "Compiled", "Unaudited", null]
+          }
+        }
+      }
+    },
+    "creditHistory": {
+      "type": "object",
+      "description": "Business credit information and history.",
+      "required": ["businessCreditScore", "scoreProvider", "reportDate"],
+      "properties": {
+        "businessCreditScore": {
+          "type": "integer",
+          "description": "Primary business credit score."
+        },
+        "scoreProvider": {
+          "type": "string",
+          "description": "Provider of the business credit score.",
+          "examples": [
+            "Dun & Bradstreet",
+            "Experian Business",
+            "Equifax Business"
+          ]
+        },
+        "reportDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the credit report was pulled."
+        },
+        "existingDebts": {
+          "type": "array",
+          "description": "Details on current business debts.",
+          "items": {
+            "type": "object",
+            "required": [
+              "lenderName",
+              "debtType",
+              "originalAmount",
+              "currentBalance",
+              "monthlyPayment"
+            ],
+            "properties": {
+              "lenderName": {
+                "type": "string",
+                "description": "Name of the lending institution or creditor."
+              },
+              "debtType": {
+                "type": "string",
+                "description": "Type of debt obligation.",
+                "examples": [
+                  "Term Loan",
+                  "Line of Credit",
+                  "Mortgage",
+                  "Equipment Lease",
+                  "Credit Card"
+                ]
+              },
+              "originalAmount": {
+                "type": "number",
+                "description": "Original principal amount of the debt."
+              },
+              "currentBalance": {
+                "type": "number",
+                "description": "Current outstanding balance of the debt."
+              },
+              "monthlyPayment": {
+                "type": "number",
+                "description": "Regular monthly payment amount for the debt."
+              },
+              "paymentBehaviorSummary": {
+                "type": ["string", "null"],
+                "description": "Qualitative summary of payment history. Can be null if not provided.",
+                "examples": [
+                  "Pays early",
+                  "Pays on time",
+                  "Occasional late payments",
+                  "Frequent late payments"
+                ]
+              }
+            }
+          }
+        },
+        "publicRecords": {
+          "type": "array",
+          "description": "Public legal records related to the business such as bankruptcies, liens, or judgments.",
+          "items": {
+            "type": "object",
+            "required": ["recordType", "recordDate", "details"],
+            "properties": {
+              "recordType": {
+                "type": "string",
+                "description": "Type of public record.",
+                "examples": ["Bankruptcy", "Tax Lien", "Judgment", "UCC Filing"]
+              },
+              "recordDate": {
+                "type": "string",
+                "format": "date",
+                "description": "Date the public record was filed or recorded."
+              },
+              "details": {
+                "type": "string",
+                "description": "Specific details about the public record."
+              }
+            }
+          }
+        }
+      }
+    },
+    "ownershipStructure": {
+      "type": "object",
+      "description": "Information about the ownership structure of the business.",
+      "required": ["owners"],
+      "properties": {
+        "owners": {
+          "type": "array",
+          "description": "Information on individuals with significant ownership in the business.",
+          "items": {
+            "type": "object",
+            "required": [
+              "ownerName",
+              "ownershipPercentage",
+              "personalAddress",
+              "personalCreditScore",
+              "scoreProvider",
+              "reportDate",
+              "isGuarantor"
+            ],
+            "properties": {
+              "ownerName": {
+                "type": "string",
+                "description": "Full name of the business owner."
+              },
+              "ownershipPercentage": {
+                "type": "number",
+                "description": "Percentage of the business owned by this individual.",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "ownerRole": {
+                "type": ["string", "null"],
+                "description": "Role of the owner in the business. Can be null if not provided.",
+                "examples": ["CEO", "CFO", "Partner", "Silent Partner"]
+              },
+              "personalAddress": {
+                "type": "object",
+                "description": "Home address of the business owner.",
+                "required": [
+                  "streetAddress",
+                  "city",
+                  "stateProvince",
+                  "postalCode",
+                  "country"
+                ],
+                "properties": {
+                  "streetAddress": {
+                    "type": "string",
+                    "description": "Street address of the owner's residence."
+                  },
+                  "city": {
+                    "type": "string",
+                    "description": "City where the owner resides."
+                  },
+                  "stateProvince": {
+                    "type": "string",
+                    "description": "State, province, or region where the owner resides."
+                  },
+                  "postalCode": {
+                    "type": "string",
+                    "description": "Postal or ZIP code of the owner's residence."
+                  },
+                  "country": {
+                    "type": "string",
+                    "description": "Country where the owner resides."
+                  }
+                }
+              },
+              "personalCreditScore": {
+                "type": "integer",
+                "description": "Owner's personal credit score (e.g., FICO or equivalent)."
+              },
+              "scoreProvider": {
+                "type": "string",
+                "description": "Provider of the personal credit score.",
+                "examples": ["Experian", "Equifax", "TransUnion"]
+              },
+              "reportDate": {
+                "type": "string",
+                "format": "date",
+                "description": "Date the personal credit report was pulled."
+              },
+              "isGuarantor": {
+                "type": "boolean",
+                "description": "Indicates whether this owner personally guarantees the loan."
+              },
+              "guaranteeDetails": {
+                "type": ["string", "null"],
+                "description": "Specific details about the personal guarantee, if applicable. Can be null if not a guarantor or if details not provided."
+              }
+            }
+          }
+        }
+      }
+    },
+    "externalFactors": {
+      "type": "object",
+      "description": "Information about external factors that might influence the loan decision.",
+      "required": ["assessmentDate"],
+      "properties": {
+        "assessmentDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the external factors were assessed."
+        },
+        "macroeconomicData": {
+          "type": "object",
+          "description": "Relevant economic indicators at the time of application.",
+          "properties": {
+            "interestRateBenchmark": {
+              "type": ["string", "null"],
+              "description": "Reference interest rate benchmark. Can be null if not provided.",
+              "examples": ["Prime Rate", "SOFR", "Federal Funds Rate"]
+            },
+            "benchmarkValue": {
+              "type": ["number", "null"],
+              "description": "Current value of the referenced interest rate benchmark. Can be null if not provided."
+            },
+            "gdpGrowthRate": {
+              "type": ["number", "null"],
+              "description": "Relevant national or regional GDP growth rate. Can be null if not provided."
+            },
+            "unemploymentRate": {
+              "type": ["number", "null"],
+              "description": "Relevant national or regional unemployment rate. Can be null if not provided."
+            }
+          }
+        },
+        "industryBenchmarks": {
+          "type": "object",
+          "description": "Performance metrics relative to the borrower's industry.",
+          "properties": {
+            "averageRevenueGrowth": {
+              "type": ["number", "null"],
+              "description": "Average revenue growth rate for the industry. Can be null if not provided."
+            },
+            "averageProfitMargin": {
+              "type": ["number", "null"],
+              "description": "Average profit margin for the industry. Can be null if not provided."
+            },
+            "debtToEquityRatioBenchmark": {
+              "type": ["number", "null"],
+              "description": "Industry benchmark for debt-to-equity ratio. Can be null if not provided."
+            }
+          }
+        },
+        "economicOutlookSummary": {
+          "type": ["string", "null"],
+          "description": "Qualitative assessment of the relevant economic environment. Can be null if not provided."
+        }
+      }
+    }
+  }
+}

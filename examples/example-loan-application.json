@@ -1,0 +1,222 @@
+{
+  "loanDetails": {
+    "loanId": "BL-2025-03428",
+    "requestedAmount": 250000.00,
+    "currency": "USD",
+    "loanTermMonths": 60,
+    "loanPurpose": "Purchase of new manufacturing equipment to expand production capacity",
+    "loanPurposeCategory": "Equipment Purchase",
+    "collateral": [
+      {
+        "collateralType": "Equipment",
+        "collateralDescription": "CNC Milling Machine - Haas VF-2SS",
+        "estimatedValue": 175000.00,
+        "valuationDate": "2025-03-15"
+      },
+      {
+        "collateralType": "Real Estate",
+        "collateralDescription": "Commercial property at 1234 Industrial Way, Portland, OR",
+        "estimatedValue": 950000.00,
+        "valuationDate": "2025-02-28"
+      }
+    ],
+    "requestedRepaymentSchedule": "Monthly"
+  },
+  "borrowerInformation": {
+    "businessLegalName": "Precision Manufacturing Solutions, LLC",
+    "doingBusinessAs": "PrecisionMS",
+    "entityType": "LLC",
+    "taxId": "83-4521987",
+    "industryClassification": {
+      "codeType": "NAICS",
+      "code": "332710",
+      "description": "Machine Shops"
+    },
+    "formationDate": "2018-05-12",
+    "yearsInBusiness": 6.8,
+    "businessAddress": {
+      "streetAddress": "1234 Industrial Way, Suite 101",
+      "city": "Portland",
+      "stateProvince": "OR",
+      "postalCode": "97203",
+      "country": "USA"
+    },
+    "phoneNumber": "503-555-7890",
+    "websiteUrl": "https://www.precisionms.com"
+  },
+  "financialStatements": [
+    {
+      "statementType": "Balance Sheet",
+      "periodEndDate": "2024-12-31",
+      "statementData": {
+        "assets": {
+          "currentAssets": {
+            "cash": 125000.00,
+            "accountsReceivable": 215000.00,
+            "inventory": 180000.00,
+            "otherCurrentAssets": 35000.00
+          },
+          "fixedAssets": {
+            "propertyAndEquipment": 850000.00,
+            "accumulatedDepreciation": -320000.00
+          },
+          "totalAssets": 1085000.00
+        },
+        "liabilities": {
+          "currentLiabilities": {
+            "accountsPayable": 95000.00,
+            "shortTermDebt": 75000.00,
+            "otherCurrentLiabilities": 45000.00
+          },
+          "longTermLiabilities": {
+            "longTermDebt": 450000.00
+          },
+          "totalLiabilities": 665000.00
+        },
+        "equity": {
+          "ownerCapital": 250000.00,
+          "retainedEarnings": 170000.00,
+          "totalEquity": 420000.00
+        }
+      },
+      "auditStatus": "Reviewed"
+    },
+    {
+      "statementType": "Income Statement",
+      "periodEndDate": "2024-12-31",
+      "statementData": {
+        "revenue": 1250000.00,
+        "costOfGoodsSold": 675000.00,
+        "grossProfit": 575000.00,
+        "operatingExpenses": {
+          "salariesAndWages": 275000.00,
+          "rent": 60000.00,
+          "utilities": 35000.00,
+          "insurance": 25000.00,
+          "marketingAndAdvertising": 30000.00,
+          "otherExpenses": 45000.00
+        },
+        "totalOperatingExpenses": 470000.00,
+        "operatingIncome": 105000.00,
+        "interestExpense": 22500.00,
+        "otherIncome": 5000.00,
+        "incomeTaxes": 21875.00,
+        "netIncome": 65625.00
+      },
+      "auditStatus": "Reviewed"
+    },
+    {
+      "statementType": "Cash Flow Statement",
+      "periodEndDate": "2024-12-31",
+      "statementData": {
+        "operatingActivities": {
+          "netIncome": 65625.00,
+          "depreciation": 75000.00,
+          "changeInAccountsReceivable": -35000.00,
+          "changeInInventory": -25000.00,
+          "changeInAccountsPayable": 15000.00,
+          "otherOperatingActivities": 5000.00,
+          "netCashFromOperating": 100625.00
+        },
+        "investingActivities": {
+          "purchaseOfEquipment": -120000.00,
+          "otherInvestingActivities": 0.00,
+          "netCashFromInvesting": -120000.00
+        },
+        "financingActivities": {
+          "proceedsFromLoans": 85000.00,
+          "loanRepayments": -65000.00,
+          "ownerDistributions": -35000.00,
+          "netCashFromFinancing": -15000.00
+        },
+        "netChangeInCash": -34375.00,
+        "beginningCashBalance": 159375.00,
+        "endingCashBalance": 125000.00
+      },
+      "auditStatus": "Reviewed"
+    }
+  ],
+  "creditHistory": {
+    "businessCreditScore": 78,
+    "scoreProvider": "Dun & Bradstreet",
+    "reportDate": "2025-03-01",
+    "existingDebts": [
+      {
+        "lenderName": "Oregon Community Bank",
+        "debtType": "Term Loan",
+        "originalAmount": 350000.00,
+        "currentBalance": 280000.00,
+        "monthlyPayment": 7432.25,
+        "paymentBehaviorSummary": "Pays on time"
+      },
+      {
+        "lenderName": "Pacific Equipment Finance",
+        "debtType": "Equipment Lease",
+        "originalAmount": 125000.00,
+        "currentBalance": 85000.00,
+        "monthlyPayment": 2856.75,
+        "paymentBehaviorSummary": "Pays on time"
+      }
+    ],
+    "publicRecords": [
+      {
+        "recordType": "UCC Filing",
+        "recordDate": "2022-07-15",
+        "details": "UCC filing for equipment financed through Pacific Equipment Finance"
+      }
+    ]
+  },
+  "ownershipStructure": {
+    "owners": [
+      {
+        "ownerName": "Sarah Johnson",
+        "ownershipPercentage": 60,
+        "ownerRole": "CEO",
+        "personalAddress": {
+          "streetAddress": "4567 Hillside Avenue",
+          "city": "Portland",
+          "stateProvince": "OR",
+          "postalCode": "97205",
+          "country": "USA"
+        },
+        "personalCreditScore": 785,
+        "scoreProvider": "Experian",
+        "reportDate": "2025-03-01",
+        "isGuarantor": true,
+        "guaranteeDetails": "Full personal guarantee of loan amount"
+      },
+      {
+        "ownerName": "Michael Rodriguez",
+        "ownershipPercentage": 40,
+        "ownerRole": "COO",
+        "personalAddress": {
+          "streetAddress": "7890 Riverside Drive",
+          "city": "Beaverton",
+          "stateProvince": "OR",
+          "postalCode": "97006",
+          "country": "USA"
+        },
+        "personalCreditScore": 762,
+        "scoreProvider": "Equifax",
+        "reportDate": "2025-03-01",
+        "isGuarantor": true,
+        "guaranteeDetails": "Full personal guarantee of loan amount"
+      }
+    ]
+  },
+  "externalFactors": {
+    "assessmentDate": "2025-03-20",
+    "macroeconomicData": {
+      "interestRateBenchmark": "Prime Rate",
+      "benchmarkValue": 6.25,
+      "gdpGrowthRate": 2.3,
+      "unemploymentRate": 4.1
+    },
+    "industryBenchmarks": {
+      "averageRevenueGrowth": 5.8,
+      "averageProfitMargin": 8.2,
+      "debtToEquityRatioBenchmark": 1.5
+    },
+    "economicOutlookSummary": "Manufacturing sector showing steady growth with increasing demand for precision components in aerospace and medical device industries."
+  }
+}
