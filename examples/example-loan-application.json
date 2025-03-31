@@ -1,4 +1,12 @@
 {
+  "applicationMetadata": {
+    "applicationDate": "2025-03-20",
+    "applicationStatus": "Under Review",
+    "submissionDate": "2025-03-20",
+    "underwriterId": "UW-2025-123",
+    "decisionDate": null,
+    "fundingDate": null
+  },
   "loanDetails": {
     "loanId": "BL-2025-03428",
     "requestedAmount": 250000.00,
@@ -42,7 +50,7 @@
       "country": "USA"
     },
     "phoneNumber": "503-555-7890",
-    "websiteUrl": "https://www.precisionms.com"
+    "websiteUrl": "https://www.example.com"
   },
   "financialStatements": [
     {
@@ -50,59 +58,37 @@
       "periodEndDate": "2024-12-31",
       "statementData": {
         "assets": {
-          "currentAssets": {
-            "cash": 125000.00,
-            "accountsReceivable": 215000.00,
-            "inventory": 180000.00,
-            "otherCurrentAssets": 35000.00
-          },
-          "fixedAssets": {
-            "propertyAndEquipment": 850000.00,
-            "accumulatedDepreciation": -320000.00
-          },
+          "currentAssets": 535000.00,
+          "nonCurrentAssets": 550000.00,
           "totalAssets": 1085000.00
         },
         "liabilities": {
-          "currentLiabilities": {
-            "accountsPayable": 95000.00,
-            "shortTermDebt": 75000.00,
-            "otherCurrentLiabilities": 45000.00
-          },
-          "longTermLiabilities": {
-            "longTermDebt": 450000.00
-          },
+          "currentLiabilities": 215000.00,
+          "nonCurrentLiabilities": 450000.00,
           "totalLiabilities": 665000.00
         },
         "equity": {
-          "ownerCapital": 250000.00,
-          "retainedEarnings": 170000.00,
           "totalEquity": 420000.00
         }
       },
+      "isProjected": false,
       "auditStatus": "Reviewed"
     },
     {
       "statementType": "Income Statement",
       "periodEndDate": "2024-12-31",
       "statementData": {
-        "revenue": 1250000.00,
-        "costOfGoodsSold": 675000.00,
-        "grossProfit": 575000.00,
-        "operatingExpenses": {
-          "salariesAndWages": 275000.00,
-          "rent": 60000.00,
-          "utilities": 35000.00,
-          "insurance": 25000.00,
-          "marketingAndAdvertising": 30000.00,
-          "otherExpenses": 45000.00
+        "revenue": {
+          "totalRevenue": 1250000.00
         },
-        "totalOperatingExpenses": 470000.00,
-        "operatingIncome": 105000.00,
-        "interestExpense": 22500.00,
-        "otherIncome": 5000.00,
-        "incomeTaxes": 21875.00,
+        "expenses": {
+          "totalExpenses": 1184375.00,
+          "operatingExpenses": 470000.00,
+          "interestExpense": 22500.00
+        },
         "netIncome": 65625.00
       },
+      "isProjected": false,
       "auditStatus": "Reviewed"
     },
     {
@@ -110,29 +96,16 @@
       "periodEndDate": "2024-12-31",
       "statementData": {
         "operatingActivities": {
-          "netIncome": 65625.00,
-          "depreciation": 75000.00,
-          "changeInAccountsReceivable": -35000.00,
-          "changeInInventory": -25000.00,
-          "changeInAccountsPayable": 15000.00,
-          "otherOperatingActivities": 5000.00,
           "netCashFromOperating": 100625.00
         },
         "investingActivities": {
-          "purchaseOfEquipment": -120000.00,
-          "otherInvestingActivities": 0.00,
           "netCashFromInvesting": -120000.00
         },
         "financingActivities": {
-          "proceedsFromLoans": 85000.00,
-          "loanRepayments": -65000.00,
-          "ownerDistributions": -35000.00,
           "netCashFromFinancing": -15000.00
-        },
-        "netChangeInCash": -34375.00,
-        "beginningCashBalance": 159375.00,
-        "endingCashBalance": 125000.00
+        }
       },
+      "isProjected": false,
       "auditStatus": "Reviewed"
     }
   ],
@@ -140,22 +113,21 @@
     "businessCreditScore": 78,
     "scoreProvider": "Dun & Bradstreet",
     "reportDate": "2025-03-01",
+    "paymentBehaviorSummary": "Excellent",
     "existingDebts": [
       {
         "lenderName": "Oregon Community Bank",
         "debtType": "Term Loan",
         "originalAmount": 350000.00,
         "currentBalance": 280000.00,
-        "monthlyPayment": 7432.25,
-        "paymentBehaviorSummary": "Pays on time"
+        "monthlyPayment": 7432.25
       },
       {
         "lenderName": "Pacific Equipment Finance",
         "debtType": "Equipment Lease",
         "originalAmount": 125000.00,
         "currentBalance": 85000.00,
-        "monthlyPayment": 2856.75,
-        "paymentBehaviorSummary": "Pays on time"
+        "monthlyPayment": 2856.75
       }
     ],
     "publicRecords": [

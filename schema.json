@@ -3,14 +3,163 @@
   "title": "Business Loan Underwriting Schema",
   "description": "A comprehensive schema for capturing data related to business loan underwriting, designed for API ingestion and credit risk modeling.",
   "type": "object",
+  "$defs": {
+    "address": {
+      "type": "object",
+      "description": "Standardized address structure used throughout the schema.",
+      "required": [
+        "streetAddress",
+        "city",
+        "stateProvince",
+        "postalCode",
+        "country"
+      ],
+      "properties": {
+        "streetAddress": {
+          "type": "string",
+          "description": "Street address of the location."
+        },
+        "city": {
+          "type": "string",
+          "description": "City where the location is situated."
+        },
+        "stateProvince": {
+          "type": "string",
+          "description": "State, province, or region where the location is situated."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "Postal or ZIP code of the location."
+        },
+        "country": {
+          "type": "string",
+          "description": "Country where the location is situated."
+        }
+      }
+    },
+    "financialStatementData": {
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "Structure for Balance Sheet statement data.",
+          "required": ["assets", "liabilities", "equity"],
+          "properties": {
+            "assets": {
+              "type": "object",
+              "description": "Asset categories and values.",
+              "required": ["totalAssets", "currentAssets", "nonCurrentAssets"],
+              "additionalProperties": true
+            },
+            "liabilities": {
+              "type": "object",
+              "description": "Liability categories and values.",
+              "required": ["totalLiabilities", "currentLiabilities", "nonCurrentLiabilities"],
+              "additionalProperties": true
+            },
+            "equity": {
+              "type": "object",
+              "description": "Equity categories and values.",
+              "required": ["totalEquity"],
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Structure for Income Statement statement data.",
+          "required": ["revenue", "expenses", "netIncome"],
+          "properties": {
+            "revenue": {
+              "type": "object",
+              "description": "Revenue categories and values.",
+              "required": ["totalRevenue"],
+              "additionalProperties": true
+            },
+            "expenses": {
+              "type": "object",
+              "description": "Expense categories and values.",
+              "required": ["totalExpenses", "operatingExpenses", "interestExpense"],
+              "additionalProperties": true
+            },
+            "netIncome": {
+              "type": "number",
+              "description": "Net income or loss for the period."
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Structure for Cash Flow Statement statement data.",
+          "required": ["operatingActivities", "investingActivities", "financingActivities"],
+          "properties": {
+            "operatingActivities": {
+              "type": "object",
+              "description": "Cash flows from operating activities.",
+              "required": ["netCashFromOperating"],
+              "additionalProperties": true
+            },
+            "investingActivities": {
+              "type": "object",
+              "description": "Cash flows from investing activities.",
+              "required": ["netCashFromInvesting"],
+              "additionalProperties": true
+            },
+            "financingActivities": {
+              "type": "object",
+              "description": "Cash flows from financing activities.",
+              "required": ["netCashFromFinancing"],
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    }
+  },
   "required": [
     "loanDetails",
     "borrowerInformation",
     "financialStatements",
     "creditHistory",
-    "ownershipStructure"
+    "ownershipStructure",
+    "applicationMetadata"
   ],
   "properties": {
+    "applicationMetadata": {
+      "type": "object",
+      "description": "Metadata about the loan application process.",
+      "required": ["applicationDate", "applicationStatus"],
+      "properties": {
+        "applicationDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when the loan application was submitted."
+        },
+        "applicationStatus": {
+          "type": "string",
+          "description": "Current status of the loan application.",
+          "enum": ["Draft", "Submitted", "Under Review", "Approved", "Rejected", "Withdrawn", "Funded"]
+        },
+        "submissionDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Date when the application was formally submitted for review. Can be null if not yet submitted."
+        },
+        "underwriterId": {
+          "type": ["string", "null"],
+          "description": "Identifier of the assigned underwriter. Can be null if not yet assigned."
+        },
+        "decisionDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Date when a final decision was made. Can be null if no decision yet."
+        },
+        "fundingDate": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Date when the loan was funded. Can be null if not yet funded."
+        }
+      }
+    },
     "loanDetails": {
       "type": "object",
       "description": "Core information about the requested loan and its terms.",
@@ -30,7 +179,8 @@
         },
         "requestedAmount": {
           "type": "number",
-          "description": "The amount of the loan requested by the borrower."
+          "description": "The amount of the loan requested by the borrower.",
+          "minimum": 0
         },
         "currency": {
           "type": "string",
@@ -39,7 +189,8 @@
         },
         "loanTermMonths": {
           "type": "integer",
-          "description": "The requested term of the loan in months."
+          "description": "The requested term of the loan in months.",
+          "minimum": 1
         },
         "loanPurpose": {
           "type": "string",
@@ -85,7 +236,8 @@
               },
               "estimatedValue": {
                 "type": "number",
-                "description": "Estimated market value of the collateral."
+                "description": "Estimated market value of the collateral.",
+                "minimum": 0
               },
               "valuationDate": {
                 "type": "string",
@@ -136,7 +288,8 @@
         },
         "taxId": {
           "type": "string",
-          "description": "Business Tax Identification Number (e.g., EIN in the US)."
+          "description": "Business Tax Identification Number (e.g., EIN in the US).",
+          "pattern": "^[0-9]{2}-[0-9]{7}$"
         },
         "industryClassification": {
           "type": "object",
@@ -165,44 +318,16 @@
         },
         "yearsInBusiness": {
           "type": ["number", "null"],
-          "description": "Calculated or provided number of years the business has been operating. Can be null if not provided."
+          "description": "Calculated or provided number of years the business has been operating. Can be null if not provided.",
+          "minimum": 0
         },
         "businessAddress": {
-          "type": "object",
-          "description": "Primary physical location of the business.",
-          "required": [
-            "streetAddress",
-            "city",
-            "stateProvince",
-            "postalCode",
-            "country"
-          ],
-          "properties": {
-            "streetAddress": {
-              "type": "string",
-              "description": "Street address of the business location."
-            },
-            "city": {
-              "type": "string",
-              "description": "City where the business is located."
-            },
-            "stateProvince": {
-              "type": "string",
-              "description": "State, province, or region where the business is located."
-            },
-            "postalCode": {
-              "type": "string",
-              "description": "Postal or ZIP code of the business location."
-            },
-            "country": {
-              "type": "string",
-              "description": "Country where the business is located."
-            }
-          }
+          "$ref": "#/$defs/address"
         },
         "phoneNumber": {
           "type": "string",
-          "description": "Primary contact phone number for the business."
+          "description": "Primary contact phone number for the business.",
+          "pattern": "^\\+?[1-9]\\d{1,14}$"
         },
         "websiteUrl": {
           "type": ["string", "null"],
@@ -213,10 +338,10 @@
     },
     "financialStatements": {
       "type": "array",
-      "description": "Collection of historical financial data for the business.",
+      "description": "Collection of historical and projected financial data for the business.",
       "items": {
         "type": "object",
-        "required": ["statementType", "periodEndDate", "statementData"],
+        "required": ["statementType", "periodEndDate", "statementData", "isProjected"],
         "properties": {
           "statementType": {
             "type": "string",
@@ -229,9 +354,11 @@
             "description": "End date of the financial period covered by the statement."
           },
           "statementData": {
-            "type": "object",
-            "description": "Key financial figures from the statement. Structure depends on the statement type.",
-            "additionalProperties": true
+            "$ref": "#/$defs/financialStatementData"
+          },
+          "isProjected": {
+            "type": "boolean",
+            "description": "Indicates whether this is a projected statement rather than historical data."
           },
           "auditStatus": {
             "type": ["string", "null"],
@@ -248,7 +375,9 @@
       "properties": {
         "businessCreditScore": {
           "type": "integer",
-          "description": "Primary business credit score."
+          "description": "Primary business credit score.",
+          "minimum": 0,
+          "maximum": 100
         },
         "scoreProvider": {
           "type": "string",
@@ -263,6 +392,11 @@
           "type": "string",
           "format": "date",
           "description": "Date the credit report was pulled."
+        },
+        "paymentBehaviorSummary": {
+          "type": "string",
+          "description": "Overall summary of the business's payment behavior.",
+          "enum": ["Excellent", "Good", "Fair", "Poor"]
         },
         "existingDebts": {
           "type": "array",
@@ -294,25 +428,18 @@
               },
               "originalAmount": {
                 "type": "number",
-                "description": "Original principal amount of the debt."
+                "description": "Original principal amount of the debt.",
+                "minimum": 0
               },
               "currentBalance": {
                 "type": "number",
-                "description": "Current outstanding balance of the debt."
+                "description": "Current outstanding balance of the debt.",
+                "minimum": 0
               },
               "monthlyPayment": {
                 "type": "number",
-                "description": "Regular monthly payment amount for the debt."
-              },
-              "paymentBehaviorSummary": {
-                "type": ["string", "null"],
-                "description": "Qualitative summary of payment history. Can be null if not provided.",
-                "examples": [
-                  "Pays early",
-                  "Pays on time",
-                  "Occasional late payments",
-                  "Frequent late payments"
-                ]
+                "description": "Regular monthly payment amount for the debt.",
+                "minimum": 0
               }
             }
           }
@@ -379,41 +506,13 @@
                 "examples": ["CEO", "CFO", "Partner", "Silent Partner"]
               },
               "personalAddress": {
-                "type": "object",
-                "description": "Home address of the business owner.",
-                "required": [
-                  "streetAddress",
-                  "city",
-                  "stateProvince",
-                  "postalCode",
-                  "country"
-                ],
-                "properties": {
-                  "streetAddress": {
-                    "type": "string",
-                    "description": "Street address of the owner's residence."
-                  },
-                  "city": {
-                    "type": "string",
-                    "description": "City where the owner resides."
-                  },
-                  "stateProvince": {
-                    "type": "string",
-                    "description": "State, province, or region where the owner resides."
-                  },
-                  "postalCode": {
-                    "type": "string",
-                    "description": "Postal or ZIP code of the owner's residence."
-                  },
-                  "country": {
-                    "type": "string",
-                    "description": "Country where the owner resides."
-                  }
-                }
+                "$ref": "#/$defs/address"
               },
               "personalCreditScore": {
                 "type": "integer",
-                "description": "Owner's personal credit score (e.g., FICO or equivalent)."
+                "description": "Owner's personal credit score (e.g., FICO or equivalent).",
+                "minimum": 300,
+                "maximum": 850
               },
               "scoreProvider": {
                 "type": "string",
@@ -459,7 +558,8 @@
             },
             "benchmarkValue": {
               "type": ["number", "null"],
-              "description": "Current value of the referenced interest rate benchmark. Can be null if not provided."
+              "description": "Current value of the referenced interest rate benchmark. Can be null if not provided.",
+              "minimum": 0
             },
             "gdpGrowthRate": {
               "type": ["number", "null"],
@@ -467,7 +567,9 @@
             },
             "unemploymentRate": {
               "type": ["number", "null"],
-              "description": "Relevant national or regional unemployment rate. Can be null if not provided."
+              "description": "Relevant national or regional unemployment rate. Can be null if not provided.",
+              "minimum": 0,
+              "maximum": 100
             }
           }
         },
@@ -481,11 +583,14 @@
             },
             "averageProfitMargin": {
               "type": ["number", "null"],
-              "description": "Average profit margin for the industry. Can be null if not provided."
+              "description": "Average profit margin for the industry. Can be null if not provided.",
+              "minimum": 0,
+              "maximum": 100
             },
             "debtToEquityRatioBenchmark": {
               "type": ["number", "null"],
-              "description": "Industry benchmark for debt-to-equity ratio. Can be null if not provided."
+              "description": "Industry benchmark for debt-to-equity ratio. Can be null if not provided.",
+              "minimum": 0
             }
           }
         },
