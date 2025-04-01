@@ -1,3 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
 # Project Context and Architecture
 
 SYSTEM_CONTEXT: |
@@ -5,7 +10,6 @@ SYSTEM_CONTEXT: |
 
   Required file reads on startup:
   - schema.json: Primary JSON Schema for business loan underwriting
-  - docs/architecture.md: Schema design principles and domain model
   - examples/: Sample JSON documents conforming to the schema
   - README.md: Project overview and usage instructions
   - CHANGELOG.md: Version history and changes
@@ -47,14 +51,6 @@ JSON_SCHEMA_GUIDELINES: |
 
 # Architecture Understanding
 SCHEMA_ARCHITECTURE: |
-  Schema sections and relationships:
-  1. loanDetails: Core information about the requested loan
-  2. borrowerInformation: Details about the business entity
-  3. financialStatements: Historical financial data
-  4. creditHistory: Business credit information
-  5. ownershipStructure: Information on business owners
-  6. externalFactors: Economic context and industry benchmarks
-
   Design principles:
   1. Evolutionary Design: Prioritize additive changes, backward compatibility
   2. Comprehensive Metadata: Use descriptions extensively for clarity

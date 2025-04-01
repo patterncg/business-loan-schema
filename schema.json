@@ -41,24 +41,28 @@
       "oneOf": [
         {
           "type": "object",
-          "description": "Structure for Balance Sheet statement data.",
+          "description": "Structure for Balance Sheet statement data, representing the financial position of the business at a specific point in time, following standard accounting principles.",
           "required": ["assets", "liabilities", "equity"],
           "properties": {
             "assets": {
               "type": "object",
-              "description": "Asset categories and values.",
+              "description": "Categories of economic resources owned or controlled by the business, including current and non-current assets.",
               "required": ["totalAssets", "currentAssets", "nonCurrentAssets"],
               "additionalProperties": true
             },
             "liabilities": {
               "type": "object",
-              "description": "Liability categories and values.",
-              "required": ["totalLiabilities", "currentLiabilities", "nonCurrentLiabilities"],
+              "description": "Categories of economic obligations of the business, including current and non-current liabilities.",
+              "required": [
+                "totalLiabilities",
+                "currentLiabilities",
+                "nonCurrentLiabilities"
+              ],
               "additionalProperties": true
             },
             "equity": {
               "type": "object",
-              "description": "Equity categories and values.",
+              "description": "Residual interest in the assets of the business after deducting liabilities, representing the owners' claim on the business.",
               "required": ["totalEquity"],
               "additionalProperties": true
             }
@@ -66,47 +70,55 @@
         },
         {
           "type": "object",
-          "description": "Structure for Income Statement statement data.",
+          "description": "Structure for Income Statement data, representing the financial performance of the business over a period of time, following standard accounting principles.",
           "required": ["revenue", "expenses", "netIncome"],
           "properties": {
             "revenue": {
               "type": "object",
-              "description": "Revenue categories and values.",
+              "description": "Categories of income generated from the business's primary operations and other sources.",
               "required": ["totalRevenue"],
               "additionalProperties": true
             },
             "expenses": {
               "type": "object",
-              "description": "Expense categories and values.",
-              "required": ["totalExpenses", "operatingExpenses", "interestExpense"],
+              "description": "Categories of costs incurred in generating revenue and operating the business.",
+              "required": [
+                "totalExpenses",
+                "operatingExpenses",
+                "interestExpense"
+              ],
               "additionalProperties": true
             },
             "netIncome": {
               "type": "number",
-              "description": "Net income or loss for the period."
+              "description": "The residual profit or loss after deducting all expenses from revenue, representing the business's bottom line performance."
             }
           }
         },
         {
           "type": "object",
-          "description": "Structure for Cash Flow Statement statement data.",
-          "required": ["operatingActivities", "investingActivities", "financingActivities"],
+          "description": "Structure for Cash Flow Statement data, representing the sources and uses of cash over a period of time, following standard accounting principles.",
+          "required": [
+            "operatingActivities",
+            "investingActivities",
+            "financingActivities"
+          ],
           "properties": {
             "operatingActivities": {
               "type": "object",
-              "description": "Cash flows from operating activities.",
+              "description": "Cash flows from the business's primary operations, including receipts from customers and payments to suppliers and employees.",
               "required": ["netCashFromOperating"],
               "additionalProperties": true
             },
             "investingActivities": {
               "type": "object",
-              "description": "Cash flows from investing activities.",
+              "description": "Cash flows from the acquisition and disposal of long-term assets and investments.",
               "required": ["netCashFromInvesting"],
               "additionalProperties": true
             },
             "financingActivities": {
               "type": "object",
-              "description": "Cash flows from financing activities.",
+              "description": "Cash flows from changes in the business's capital structure, including debt and equity financing.",
               "required": ["netCashFromFinancing"],
               "additionalProperties": true
             }
@@ -137,7 +149,15 @@
         "applicationStatus": {
           "type": "string",
           "description": "Current status of the loan application.",
-          "enum": ["Draft", "Submitted", "Under Review", "Approved", "Rejected", "Withdrawn", "Funded"]
+          "enum": [
+            "Draft",
+            "Submitted",
+            "Under Review",
+            "Approved",
+            "Rejected",
+            "Withdrawn",
+            "Funded"
+          ]
         },
         "submissionDate": {
           "type": ["string", "null"],
@@ -198,13 +218,17 @@
         },
         "loanPurposeCategory": {
           "type": "string",
-          "description": "Standardized category for the loan purpose.",
+          "description": "Standardized classification of the primary purpose for which the loan proceeds will be used, following industry standard loan purpose categories.",
           "enum": [
             "Working Capital",
             "Equipment Purchase",
-            "Real Estate",
-            "Expansion",
+            "Real Estate Acquisition",
+            "Real Estate Refinancing",
+            "Business Expansion",
             "Debt Refinancing",
+            "Inventory Financing",
+            "Accounts Receivable Financing",
+            "Acquisition Financing",
             "Other"
           ]
         },
@@ -221,13 +245,18 @@
             "properties": {
               "collateralType": {
                 "type": "string",
-                "description": "Type of collateral being pledged.",
+                "description": "Classification of the asset being pledged as security for the loan, following standard collateral categorization in commercial lending.",
                 "enum": [
-                  "Real Estate",
-                  "Equipment",
+                  "Commercial Real Estate",
+                  "Residential Real Estate",
+                  "Equipment and Machinery",
                   "Accounts Receivable",
                   "Inventory",
-                  "Securities"
+                  "Marketable Securities",
+                  "Intellectual Property",
+                  "Cash Collateral",
+                  "Personal Guarantee",
+                  "Other"
                 ]
               },
               "collateralDescription": {
@@ -277,13 +306,17 @@
         },
         "entityType": {
           "type": "string",
-          "description": "Legal structure of the business entity.",
+          "description": "Legal structure of the business entity, following standard business entity classifications. This determines the legal rights, obligations, and tax treatment of the business.",
           "enum": [
             "Sole Proprietorship",
-            "Partnership",
-            "LLC",
-            "S-Corp",
-            "C-Corp"
+            "General Partnership",
+            "Limited Partnership",
+            "Limited Liability Partnership",
+            "Limited Liability Company",
+            "S Corporation",
+            "C Corporation",
+            "Non-Profit Corporation",
+            "Cooperative"
           ]
         },
         "taxId": {
@@ -341,7 +374,12 @@
       "description": "Collection of historical and projected financial data for the business.",
       "items": {
         "type": "object",
-        "required": ["statementType", "periodEndDate", "statementData", "isProjected"],
+        "required": [
+          "statementType",
+          "periodEndDate",
+          "statementData",
+          "isProjected"
+        ],
         "properties": {
           "statementType": {
             "type": "string",

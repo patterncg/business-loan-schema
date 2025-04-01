@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Enhanced schema descriptions and classifications using FIBO concepts
+- Expanded entity type classifications to include more specific partnership types and additional common business structures
+- Refined loan purpose categories to better align with industry standards
+- Improved collateral type classifications with more specific categories
+- Enhanced financial statement descriptions with standard accounting principles
+- Updated example file to match new schema structure
+
+### Fixed
+- Updated example file to use E.164 international format for phone numbers to match schema validation
+
 ## [0.1.1] - 2025-03-31
 
 ### Added

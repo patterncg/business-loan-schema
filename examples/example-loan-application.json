@@ -9,7 +9,7 @@
   },
   "loanDetails": {
     "loanId": "BL-2025-03428",
-    "requestedAmount": 250000.00,
+    "requestedAmount": 250000.0,
     "currency": "USD",
     "loanTermMonths": 60,
     "loanPurpose": "Purchase of new manufacturing equipment to expand production capacity",
@@ -18,13 +18,13 @@
       {
         "collateralType": "Equipment",
         "collateralDescription": "CNC Milling Machine - Haas VF-2SS",
-        "estimatedValue": 175000.00,
+        "estimatedValue": 175000.0,
         "valuationDate": "2025-03-15"
       },
       {
         "collateralType": "Real Estate",
         "collateralDescription": "Commercial property at 1234 Industrial Way, Portland, OR",
-        "estimatedValue": 950000.00,
+        "estimatedValue": 950000.0,
         "valuationDate": "2025-02-28"
       }
     ],
@@ -49,7 +49,7 @@
       "postalCode": "97203",
       "country": "USA"
     },
-    "phoneNumber": "503-555-7890",
+    "phoneNumber": "+15035557890",
     "websiteUrl": "https://www.example.com"
   },
   "financialStatements": [
@@ -58,17 +58,17 @@
       "periodEndDate": "2024-12-31",
       "statementData": {
         "assets": {
-          "currentAssets": 535000.00,
-          "nonCurrentAssets": 550000.00,
-          "totalAssets": 1085000.00
+          "currentAssets": 535000.0,
+          "nonCurrentAssets": 550000.0,
+          "totalAssets": 1085000.0
         },
         "liabilities": {
-          "currentLiabilities": 215000.00,
-          "nonCurrentLiabilities": 450000.00,
-          "totalLiabilities": 665000.00
+          "currentLiabilities": 215000.0,
+          "nonCurrentLiabilities": 450000.0,
+          "totalLiabilities": 665000.0
         },
         "equity": {
-          "totalEquity": 420000.00
+          "totalEquity": 420000.0
         }
       },
       "isProjected": false,
@@ -79,14 +79,14 @@
       "periodEndDate": "2024-12-31",
       "statementData": {
         "revenue": {
-          "totalRevenue": 1250000.00
+          "totalRevenue": 1250000.0
         },
         "expenses": {
-          "totalExpenses": 1184375.00,
-          "operatingExpenses": 470000.00,
-          "interestExpense": 22500.00
+          "totalExpenses": 1184375.0,
+          "operatingExpenses": 470000.0,
+          "interestExpense": 22500.0
         },
-        "netIncome": 65625.00
+        "netIncome": 65625.0
       },
       "isProjected": false,
       "auditStatus": "Reviewed"
@@ -96,13 +96,13 @@
       "periodEndDate": "2024-12-31",
       "statementData": {
         "operatingActivities": {
-          "netCashFromOperating": 100625.00
+          "netCashFromOperating": 100625.0
         },
         "investingActivities": {
-          "netCashFromInvesting": -120000.00
+          "netCashFromInvesting": -120000.0
         },
         "financingActivities": {
-          "netCashFromFinancing": -15000.00
+          "netCashFromFinancing": -15000.0
         }
       },
       "isProjected": false,
@@ -118,15 +118,15 @@
       {
         "lenderName": "Oregon Community Bank",
         "debtType": "Term Loan",
-        "originalAmount": 350000.00,
-        "currentBalance": 280000.00,
+        "originalAmount": 350000.0,
+        "currentBalance": 280000.0,
         "monthlyPayment": 7432.25
       },
       {
         "lenderName": "Pacific Equipment Finance",
         "debtType": "Equipment Lease",
-        "originalAmount": 125000.00,
-        "currentBalance": 85000.00,
+        "originalAmount": 125000.0,
+        "currentBalance": 85000.0,
         "monthlyPayment": 2856.75
       }
     ],
