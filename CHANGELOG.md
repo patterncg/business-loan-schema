@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2025-03-31
+
 ### Changed
 - Enhanced schema descriptions and classifications using FIBO concepts
 - Expanded entity type classifications to include more specific partnership types and additional common business structures
@@ -49,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Standard JSON Schema draft-07 validation rules
 - Example JSON documents demonstrating schema usage
 
-[unreleased]: https://github.com/tim/pattern/business-loan-schema/compare/v0.1.1...HEAD
+[unreleased]: https://github.com/tim/pattern/business-loan-schema/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/tim/pattern/business-loan-schema/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/tim/pattern/business-loan-schema/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/tim/pattern/business-loan-schema/releases/tag/v0.1.0 
