@@ -1,0 +1,13 @@
+# Cursor IDE specific files
+.cursor/
+.cursorrules
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS specific files
+.DS_Store
+Thumbs.db 
