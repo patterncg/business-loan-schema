@@ -16,13 +16,13 @@
     "loanPurposeCategory": "Equipment Purchase",
     "collateral": [
       {
-        "collateralType": "Equipment",
+        "collateralType": "Equipment and Machinery",
         "collateralDescription": "CNC Milling Machine - Haas VF-2SS",
         "estimatedValue": 175000.0,
         "valuationDate": "2025-03-15"
       },
       {
-        "collateralType": "Real Estate",
+        "collateralType": "Commercial Real Estate",
         "collateralDescription": "Commercial property at 1234 Industrial Way, Portland, OR",
         "estimatedValue": 950000.0,
         "valuationDate": "2025-02-28"
@@ -33,7 +33,7 @@
   "borrowerInformation": {
     "businessLegalName": "Precision Manufacturing Solutions, LLC",
     "doingBusinessAs": "PrecisionMS",
-    "entityType": "LLC",
+    "entityType": "Limited Liability Company",
     "taxId": "83-4521987",
     "industryClassification": {
       "codeType": "NAICS",
